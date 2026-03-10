@@ -1,8 +1,6 @@
 import streamlit as st
 import importlib
-
-from backend.auth import init_db
-
+import traceback
 
 st.set_page_config(
     page_title="Traffic Intelligence System",
@@ -11,7 +9,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-init_db()
+try:
+    from backend.auth import init_db
+    init_db()
+except Exception as e:
+    st.error(f"Startup error: {e}")
+    st.code(traceback.format_exc())
+    st.stop()
+
 
 if "processed" not in st.session_state:
     st.session_state.processed = False
