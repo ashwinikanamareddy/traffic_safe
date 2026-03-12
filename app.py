@@ -8,6 +8,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+st.write("DEBUG: Page Config Loaded")
 
 # ── HACKATHON DEMO MODE BANNER ──
 st.warning("🚀 UrbanFlow AI Smart City Traffic Control Platform — Hackathon Demonstration Mode (Auth Disabled)")
@@ -62,7 +63,9 @@ if "selected_violation" not in st.session_state:
 # -- Initialize Control Engine --
 try:
     from backend.city_control_engine import get_control_engine
+    st.write("DEBUG: Control Engine module imported")
     engine = get_control_engine()
+    st.write("DEBUG: Control Engine instance created")
 except Exception as e:
     st.error(f"Engine initialization error: {e}")
     st.stop()

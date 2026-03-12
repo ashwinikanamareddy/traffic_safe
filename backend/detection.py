@@ -234,9 +234,17 @@ class _VehicleDetector:
         return detections, counts, queue_zone_y
 
 
-_DETECTOR = _VehicleDetector()
+_DETECTOR = None
+
+
+def get_detector():
+    global _DETECTOR
+    if _DETECTOR is None:
+        _DETECTOR = _VehicleDetector()
+    return _DETECTOR
 
 
 def detect_vehicles(frame, conf_threshold=0.35, imgsz=480, include_aux=False):
-    return _DETECTOR.detect(frame, conf_threshold=conf_threshold, imgsz=imgsz, include_aux=include_aux)
+    detector = get_detector()
+    return detector.detect(frame, conf_threshold=conf_threshold, imgsz=imgsz, include_aux=include_aux)
 
